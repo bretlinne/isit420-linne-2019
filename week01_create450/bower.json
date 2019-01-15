@@ -1,13 +1,12 @@
 {
-  "name": "elven-project",
+  "name": "week01-create450",
   "version": "0.0.0",
   "authors": [
-    "Charlie Calvert"
+    "Bret Linne"
   ],
-  "description": "Angular Unit Tests",
+  "description": "first assignment of isit420",
   "keywords": [],
   "license": "MIT",
-  "homepage": "http://www.elvenware.com",
   "ignore": [
     "**/.*",
     "node_modules",
