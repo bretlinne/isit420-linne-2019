@@ -8,7 +8,7 @@ var logger = require('morgan');
 var mongo = require('mongodb');
 var monk = require('monk');
 //fix this: tjhere s conn string needded
-var db = monk('localhost:27017/week01_create450');
+var db = monk('mongodb://bretlinne:Welcome123!@ds159184.mlab.com:59184/linnemd');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
