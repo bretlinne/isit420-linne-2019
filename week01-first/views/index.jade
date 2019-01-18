@@ -1,0 +1,18 @@
+doctype html
+
+extends layout
+
+block content
+  h1 #{title}
+  h3 Author: #{author}
+  
+  ul
+    li storeNumber: <span id='storeNumber'></span>
+    li salesPersonID: <span id='salesPersonID'></span>
+    li itemNumber: <span id='itemNumber'></span>
+    li timePurch: <span id='timePurch'></span>
+    li pricePaid: $ <span id='pricePaid'></span>
+  
+  button#btnRandomData Create
+  button#btnSubmit Submit
+
