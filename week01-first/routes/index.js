@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
   author: 'Bret Linne'});
 });
 
-router.post('/', function(req, res){
-  //console.log(req.body);
+router.post('/', function(req, res, next){
+ // console.log(req.body.order);
   console.log("\nPOST OUTPUT:");
   console.log("*************************************************");
   console.log("* itemNumber: \t\t"+ req.body.itemNumber + "\t\t\t*");
@@ -17,7 +17,8 @@ router.post('/', function(req, res){
   console.log("* pricePaid: \t\t"+req.body.pricePaid + "\t\t\t*");
   console.log("* salesPersonID:\t"+req.body.salesPersonID + "\t\t\t*");
   console.log("*************************************************");
-  return;
+  res.sendStatus(200);
+  
 });
 
 module.exports = router;

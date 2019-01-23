@@ -1,13 +1,14 @@
+
 // DOM Ready =============================================================
 $(document).ready(function () {
     // initially populate the list
-    populateList();
+    var rd = populateList();
 
     // change the values button
     $('#btnRandomData').on('click', populateList);
 
     // change the submit button
-    $('#btnSubmit').on('click', submitRoutine(rd));
+    $('#btnSubmit').on('click', submitRoutine);
   });
 
 const items = [123456, 123654, 321456, 321654, 654123,
@@ -47,9 +48,11 @@ function populateList() {
     $('#storeNumber').text(rd.storeNumber);
     $('#pricePaid').text(rd.pricePaid);
     $('#salesPersonID').text(rd.salesPersonID);
+    return rd;
 };
 
 function submitRoutine(data) {
+    var data = rd;
     // Use AJAX to post the object to our adduser service
     $.ajax({
         type: 'POST',
@@ -102,4 +105,3 @@ const getTimePurchased = () =>{
     })
     return currentDateString + ":" + currentTimeString;//dateString;
 };
-
