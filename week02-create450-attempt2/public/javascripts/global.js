@@ -10,14 +10,11 @@ $(document).ready(function () {
     // displays info for the whole order in the orderDetails area.
     $('#orderListTable table tbody').on('click', 'td a.linkshowuser', showUserInfo);
 
-    // change the values button
-    $('#btnRandomData').on('click', populateList);
-
     // change the submit button
     $('#btnSubmit').on('click', submitRoutine);
 
     // change the bulk button
-    $('#btnBulk').on('click', bulkRoutine());
+    $('#btnBulk').on('click', bulkRoutine);
   });
 
 const items = [123456, 123654, 321456, 321654, 654123,
@@ -54,13 +51,14 @@ function bulkRoutine(event){
 
     //var confirmation = confirm('You sure you want to add a crap-load of orders (450!)?');
 
-    rd = getRandomData();
+    
 
     // change to 450
     var ordersToAdd = 2;
 
     var i;
     for(i = 0;i < ordersToAdd; i++){
+        rd = getRandomData();
         var newOrder = {
             storeNumber: rd.storeNumber,
             salesPersonID: rd.salesPersonID,
@@ -74,7 +72,7 @@ function bulkRoutine(event){
         $.ajax({
             type: 'POST',
             data: newOrder,
-            url: '/ursers/add-order',
+            url: '/users/add-order',
             dataType: 'JSON'
         }).done(function(response){
             if(response.msg === ''){
@@ -89,13 +87,6 @@ function bulkRoutine(event){
 
 // Fill Order Table Columns with data
 function populateOrderTable() {
-    /*rd = getRandomData();
-    $('#itemNumber').text(rd.itemNumber);
-    $('#timePurch').text(rd.timePurch);
-    $('#storeNumber').text(rd.storeNumber);
-    $('#pricePaid').text(rd.pricePaid);
-    $('#salesPersonID').text(rd.salesPersonID);
-*/
     // Empty content string
     var tableContent = '';
 
