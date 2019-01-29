@@ -1,13 +1,20 @@
+var orderListData = [];
+
 // DOM Ready =============================================================
 $(document).ready(function () {
-    // initially populate the list
-    populateList();
+    
+    // initially populate the order table
+    populateOrderTable();
+
+    // make a link in the table that is the salesman ID and when clicked
+    // displays info for the whole order in the orderDetails area.
+    $('#orderListTable table tbody').on('click', 'td a.linkshowuser', showUserInfo);
 
     // change the values button
     $('#btnRandomData').on('click', populateList);
 
     // change the submit button
-    $('#btnSubmit').on('click', submitRoutine(rd));
+    $('#btnSubmit').on('click', submitRoutine);
 
     // change the bulk button
     $('#btnBulk').on('click', bulkRoutine());
@@ -46,17 +53,72 @@ function bulkRoutine(){
 
 }
 
-// Fill table with data
-function populateList() {
-    rd = getRandomData();
+// Fill Order Table Columns with data
+function populateOrderTable() {
+/*    rd = getRandomData();
     $('#itemNumber').text(rd.itemNumber);
     $('#timePurch').text(rd.timePurch);
     $('#storeNumber').text(rd.storeNumber);
     $('#pricePaid').text(rd.pricePaid);
-    $('#salesPersonID').text(rd.salesPersonID);
+    $('#salesPersonID').text(rd.salesPersonID);*/
+    // Empty content string
+    var tableContent = '';
+
+    // jQuery AJAX call for JSON
+    $.getJSON('/users/userlist', function (data) {
+
+        // Stick our user data array into a userlist variable in the global object
+        orderListData = data;
+
+        // For each item in our JSON, add a table row and cells to the content string
+        $.each(data, function () {
+            // CHANGE *** Made changes to the list so that it shows values
+            // from HW2 *******************************************
+            tableContent += '<tr>';
+            // Modified so that rel points to the unique db ID in order to
+            // show correct sale when asked to display.
+            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this._id + '">' + this.salesPersonID + '</a></td>';
+            tableContent += '<td>' + this.itemNumber + '</td>';
+            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '</tr>';
+        });
+
+        // Inject the whole content string into our existing HTML table
+        $('#userList table tbody').html(tableContent);
+    });
+};
+
+// Show User Info
+function showUserInfo(event) {
+
+    // Prevent Link from Firing
+    event.preventDefault();
+
+    // Retrieve username from link rel attribute
+    var thisSalesPersonID = $(this).attr('rel');
+
+    // Get Index of object based on id value
+    var arrayPosition = orderListData.map(function (arrayItem) {
+        // Modified so that the uniqe sales ID is selected rather than the salesPersonID which can repeat itself.
+        return arrayItem._id;
+    // Had a weird issue with the array being off by 1 (-1), after deleting the first entry, it fixed itself... Don't know how.
+    }).indexOf(thisSalesPersonID);
+
+    // Get our User Object
+    var thisOrderObject = orderListData[arrayPosition];
+
+    //Populate Info Box
+    // CHANGE *** Modified the existing code so it returns the correct values from HW2***************************
+    $('#itemNumber').text(thisOrderObject.itemNumber);
+    $('#timePurch').text(thisOrderObject.timePurch);
+    $('#storeNumber').text(thisOrderObject.storeNumber);
+    $('#pricePaid').text(thisOrderObject.pricePaid);
+    $('#salesPersonID').text(thisOrderObject.salesPersonID);
+
 };
 
 function submitRoutine(data) {
+    var data = rd;
     // Use AJAX to post the object to our adduser service
     $.ajax({
         type: 'POST',

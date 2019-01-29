@@ -6,13 +6,28 @@ block content
   h1 #{title}
   h3 Author: #{author}
   
+  // Wrapper
+  #wrapper
+
+  // OrderDetails
+  h2 Order Details
+  #orderDetails
   ul
-    li storeNumber: <span id='storeNumber'></span>
-    li salesPersonID: <span id='salesPersonID'></span>
     li itemNumber: <span id='itemNumber'></span>
     li timePurch: <span id='timePurch'></span>
+    li storeNumber: <span id='storeNumber'></span>
     li pricePaid: $ <span id='pricePaid'></span>
+    li salesPersonID: <span id='salesPersonID'></span>
   
+  h2 Order List
+  #orderList
+    table
+      thead
+        th Salesman ID
+        th Item Number
+        th Delete Record
+      tbody
+
   button#btnRandomData Create
   button#btnSubmit Submit
   button#btnBulk Bulk
