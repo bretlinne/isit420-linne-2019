@@ -9,16 +9,7 @@ block content
   // Wrapper
   #wrapper
 
-  // OrderDetails
-  h2 Order Details
-  #orderDetails
-  ul
-    li itemNumber: <span id='itemNumber'></span>
-    li timePurch: <span id='timePurch'></span>
-    li storeNumber: <span id='storeNumber'></span>
-    li pricePaid: $ <span id='pricePaid'></span>
-    li salesPersonID: <span id='salesPersonID'></span>
-  
+  //Order Table
   h2 Order List
   #orderListTable
     table
@@ -28,6 +19,20 @@ block content
         th Delete Record
       tbody
 
+  // OrderDetails (for each Order selected in table)
+  h2 Order Details
+  #orderDetails
+  ul
+    li itemNumber: <span id='itemNumber'></span>
+    li timePurch: <span id='timePurch'></span>
+    li storeNumber: <span id='storeNumber'></span>
+    li pricePaid: $ <span id='pricePaid'></span>
+    li salesPersonID: <span id='salesPersonID'></span>
+
+  
+  br
+  br
+  #buttons
   button#btnRandomData Create
   button#btnSubmit Submit
   button#btnBulk Bulk

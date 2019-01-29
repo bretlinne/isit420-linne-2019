@@ -49,23 +49,58 @@ const stores = [
     }
 ];
 
-function bulkRoutine(){
+function bulkRoutine(event){
+    event.preventDefault();
 
-}
+    //var confirmation = confirm('You sure you want to add a crap-load of orders (450!)?');
+
+    rd = getRandomData();
+
+    // change to 450
+    var ordersToAdd = 2;
+
+    var i;
+    for(i = 0;i < ordersToAdd; i++){
+        var newOrder = {
+            storeNumber: rd.storeNumber,
+            salesPersonID: rd.salesPersonID,
+            itemNumber: rd.itemNumber,
+            timePurch: rd.timePurch,
+            pricePaid: rd.pricePaid
+        }
+        const body = JSON.stringify({newOrder});
+
+        //AJAX to post object to the add-order service
+        $.ajax({
+            type: 'POST',
+            data: newOrder,
+            url: '/ursers/add-order',
+            dataType: 'JSON'
+        }).done(function(response){
+            if(response.msg === ''){
+                populateOrderTable();
+            }
+            else{
+                alert('Error: ' + response.msg);
+            }
+        });
+    };
+};
 
 // Fill Order Table Columns with data
 function populateOrderTable() {
-/*    rd = getRandomData();
+    /*rd = getRandomData();
     $('#itemNumber').text(rd.itemNumber);
     $('#timePurch').text(rd.timePurch);
     $('#storeNumber').text(rd.storeNumber);
     $('#pricePaid').text(rd.pricePaid);
-    $('#salesPersonID').text(rd.salesPersonID);*/
+    $('#salesPersonID').text(rd.salesPersonID);
+*/
     // Empty content string
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON('/users/userlist', function (data) {
+    $.getJSON('/users/order-list', function (data) {
 
         // Stick our user data array into a userlist variable in the global object
         orderListData = data;
@@ -84,7 +119,7 @@ function populateOrderTable() {
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#userList table tbody').html(tableContent);
+        $('#orderListTable table tbody').html(tableContent);
     });
 };
 
